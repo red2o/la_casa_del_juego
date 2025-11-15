@@ -67,15 +67,40 @@
                 <p class="mt-2 text-xs text-gray-400">Lanzamiento: ${j.fecha}</p>
 
                 <div class="mt-4 flex justify-between items-center">
+
+                    <!-- BOTÓN DE VOTO -->
+                    <button onclick="votar(${j.id})"
+                        class="text-pink-400 hover:text-pink-300 text-sm">
+                        👍 Votar
+                    </button>
+
                     <a href="ranking.html"
                        class="text-pink-400 hover:text-pink-300 text-sm">Ver ranking</a>
-                    <a href="lanzamientos.html"
-                       class="text-pink-400 hover:text-pink-300 text-sm">Ver más</a>
                 </div>
             `;
 
             contenedor.appendChild(card);
         });
+
+        // ==========================
+        // FUNCIÓN PARA VOTAR
+        // ==========================
+        function votar(id) {
+            let juegos = cargarJuegos();
+
+            const juego = juegos.find(j => j.id === id);
+            if (!juego) return;
+
+            // Agregamos un voto (puede ser 1 vacío)
+            juego.votos.push(1);
+
+            guardarJuegos(juegos);
+
+            alert(`¡Gracias por votar por ${juego.titulo}!`);
+
+            // Opción: redirigir al ranking automáticamente
+            // window.location.href = "ranking.html";
+        }
     </script>
 
 </body>
