@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Casa del Juego - Inicio</title>
 
-    <!-- Estilos propios -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Carga de Tailwind para compatibilidad visual -->
+    <!-- Solo Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Sistema central de datos -->
+    <!-- Base de datos -->
     <script src="data.js"></script>
 </head>
 
@@ -32,12 +29,14 @@
     </header>
 
     <!-- HERO -->
-    <section class="py-12 text-center bg-gradient-to-b from-gray-800 to-gray-900">
+    <section class="py-14 text-center bg-gradient-to-b from-gray-800 to-gray-900">
         <h2 class="text-4xl font-bold mb-4">Próximos Juegos Más Esperados</h2>
-        <p class="text-gray-300 text-lg">Descubre lanzamientos, vota tus favoritos y comparte tu opinión.</p>
+        <p class="text-gray-300 text-lg">
+            Descubre lanzamientos, vota tus favoritos y comparte tu opinión.
+        </p>
     </section>
 
-    <!-- CONTENEDOR DE JUEGOS -->
+    <!-- CONTENIDO -->
     <main class="container mx-auto p-6">
 
         <h3 class="text-2xl font-bold mb-6">Lanzamientos Destacados</h3>
@@ -46,15 +45,11 @@
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-gray-800 p-5 text-center mt-10">
         <p class="text-gray-400">© 2025 La Casa del Juego — Todos los derechos reservados</p>
     </footer>
 
     <script>
-        // ==============================
-        //   CARGAR JUEGOS DINÁMICAMENTE
-        // ==============================
         const juegos = cargarJuegos();
         const contenedor = document.getElementById("games-container");
 
@@ -63,16 +58,19 @@
             card.className = "bg-gray-800 p-4 rounded-lg shadow hover:shadow-xl transition";
 
             card.innerHTML = `
-                <img src="${j.imagen}" alt="${j.titulo}" class="w-full h-40 object-cover rounded">
-                
+                <img src="${j.imagen}" alt="${j.titulo}"
+                     class="w-full h-40 object-cover rounded">
+
                 <h4 class="text-xl font-bold mt-3">${j.titulo}</h4>
                 <p class="text-gray-300 text-sm">${j.descripcion}</p>
 
                 <p class="mt-2 text-xs text-gray-400">Lanzamiento: ${j.fecha}</p>
 
                 <div class="mt-4 flex justify-between items-center">
-                    <a href="ranking.html" class="text-pink-400 hover:text-pink-300 text-sm">Ver ranking</a>
-                    <a href="lanzamientos.html" class="text-pink-400 hover:text-pink-300 text-sm">Ver más</a>
+                    <a href="ranking.html"
+                       class="text-pink-400 hover:text-pink-300 text-sm">Ver ranking</a>
+                    <a href="lanzamientos.html"
+                       class="text-pink-400 hover:text-pink-300 text-sm">Ver más</a>
                 </div>
             `;
 
