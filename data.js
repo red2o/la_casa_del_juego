@@ -10,7 +10,7 @@ const juegosIniciales = [
         id: 1,
         titulo: "Elden Ring",
         descripcion: "Elden Ring es un RPG de acción desarrollado por FromSoftware.",
-        imagen: "https://via.placeholder.com/150",
+        imagen: "images/elden.png",
         fecha: "2025-06-15",
         votos: []
     },
@@ -18,7 +18,7 @@ const juegosIniciales = [
         id: 2,
         titulo: "GTA 6",
         descripcion: "Grand Theft Auto VI, el regreso más esperado de Rockstar.",
-        imagen: "https://via.placeholder.com/150",
+        imagen: "images/gta6.png",
         fecha: "2025-09-20",
         votos: []
     },
@@ -26,7 +26,7 @@ const juegosIniciales = [
         id: 3,
         titulo: "Hollow Knight: Silksong",
         descripcion: "Secuela del aclamado Metroidvania Hollow Knight.",
-        imagen: "https://via.placeholder.com/150",
+        imagen: "images/silksong.png",
         fecha: "2025-03-10",
         votos: []
     }
