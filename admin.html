@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración</title>
+    <script src="data.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 p-5 shadow-md">
+        <nav class="container mx-auto flex justify-between">
+            <h1 class="text-2xl font-bold">Panel de Administración</h1>
+            <a href="index.html" class="hover:text-pink-400">Volver al Inicio</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-6">
+        <h2 class="text-xl font-bold mb-4">Agregar Nuevo Juego</h2>
+
+        <form id="formJuego" class="bg-gray-800 p-5 rounded-lg mb-10">
+            <div class="grid md:grid-cols-2 gap-4">
+
+                <input type="text" id="titulo" placeholder="Título del juego"
+                    class="p-2 rounded text-black" required>
+
+                <input type="text" id="imagen" placeholder="URL de la imagen"
+                    class="p-2 rounded text-black">
+
+                <input type="date" id="fecha"
+                    class="p-2 rounded text-black" required>
+
+                <textarea id="descripcion" placeholder="Descripción del juego"
+                    class="p-2 rounded text-black col-span-2" required></textarea>
+            </div>
+
+            <button class="mt-4 bg-pink-500 px-4 py-2 rounded hover:bg-pink-600">
+                Agregar Juego
+            </button>
+        </form>
+
+        <h2 class="text-xl font-bold mb-4">Juegos Actuales</h2>
+
+        <div id="listaJuegos" class="grid md:grid-cols-2 gap-6"></div>
+
+    </main>
+
+    <script>
+        let juegos = cargarJuegos();
+
+        function renderJuegos() {
+            const contenedor = document.getElementById("listaJuegos");
+            contenedor.innerHTML = "";
+
+            juegos.forEach(juego => {
+                const card = document.createElement("div");
+                card.className = "bg-gray-800 p-4 rounded shadow";
+
+                card.innerHTML = `
+                    <h3 class="text-lg font-bold">${juego.titulo}</h3>
+                    <p class="text-sm text-gray-300">${juego.descripcion}</p>
+                    <p class="text-xs mt-2">Lanzamiento: ${juego.fecha}</p>
+
+                    <button onclick="eliminarJuego(${juego.id})"
+                        class="mt-4 bg-red-500 px-3 py-1 rounded hover:bg-red-600">
+                        Eliminar
+                    </button>
+                `;
+
+                contenedor.appendChild(card);
+            });
+        }
+
+        function eliminarJuego(id) {
+            juegos = juegos.filter(j => j.id !== id);
+            guardarJuegos(juegos);
+            renderJuegos();
+        }
+
+        document.getElementById("formJuego").addEventListener("submit", e => {
+            e.preventDefault();
+
+            const titulo = document.getElementById("titulo").value;
+            const imagen = document.getElementById("imagen").value || "https://via.placeholder.com/150";
+            const fecha = document.getElementById("fecha").value;
+            const descripcion = document.getElementById("descripcion").value;
+
+            const nuevo = {
+                id: nuevoID(juegos),
+                titulo,
+                descripcion,
+                imagen,
+                fecha,
+                votos: []
+            };
+
+            juegos.push(nuevo);
+            guardarJuegos(juegos);
+            renderJuegos();
+
+            e.target.reset();
+        });
+
+        renderJuegos();
+    </script>
+
+</body>
+</html>

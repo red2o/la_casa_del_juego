@@ -2,27 +2,83 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>GameRadar - Próximos Lanzamientos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Casa del Juego - Inicio</title>
+
+    <!-- Estilos propios -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Carga de Tailwind para compatibilidad visual -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Sistema central de datos -->
+    <script src="data.js"></script>
 </head>
-<body>
 
-<header>
-    <h1>GameRadar Magazine</h1>
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="lanzamientos.html">Lanzamientos</a>
-        <a href="ranking.html">Ranking</a>
-        <a href="contacto.html">Comentarios</a>
-    </nav>
-</header>
+<body class="bg-gray-900 text-white">
 
-<div class="container">
-    <h2>Los juegos más esperados</h2>
+    <!-- NAV -->
+    <header class="bg-gray-800 p-5 shadow-md">
+        <nav class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">La Casa del Juego</h1>
+            <div class="flex gap-5">
+                <a href="index.html" class="hover:text-pink-400">Inicio</a>
+                <a href="lanzamientos.html" class="hover:text-pink-400">Lanzamientos</a>
+                <a href="ranking.html" class="hover:text-pink-400">Ranking</a>
+                <a href="comentarios.html" class="hover:text-pink-400">Comentarios</a>
+                <a href="contacto.html" class="hover:text-pink-400">Contacto</a>
+            </div>
+        </nav>
+    </header>
 
-    <div class="card-grid" id="homeGames"></div>
-</div>
+    <!-- HERO -->
+    <section class="py-12 text-center bg-gradient-to-b from-gray-800 to-gray-900">
+        <h2 class="text-4xl font-bold mb-4">Próximos Juegos Más Esperados</h2>
+        <p class="text-gray-300 text-lg">Descubre lanzamientos, vota tus favoritos y comparte tu opinión.</p>
+    </section>
 
-<script src="script.js"></script>
+    <!-- CONTENEDOR DE JUEGOS -->
+    <main class="container mx-auto p-6">
+
+        <h3 class="text-2xl font-bold mb-6">Lanzamientos Destacados</h3>
+
+        <div id="games-container" class="grid md:grid-cols-3 gap-6"></div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 p-5 text-center mt-10">
+        <p class="text-gray-400">© 2025 La Casa del Juego — Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // ==============================
+        //   CARGAR JUEGOS DINÁMICAMENTE
+        // ==============================
+        const juegos = cargarJuegos();
+        const contenedor = document.getElementById("games-container");
+
+        juegos.forEach(j => {
+            const card = document.createElement("div");
+            card.className = "bg-gray-800 p-4 rounded-lg shadow hover:shadow-xl transition";
+
+            card.innerHTML = `
+                <img src="${j.imagen}" alt="${j.titulo}" class="w-full h-40 object-cover rounded">
+                
+                <h4 class="text-xl font-bold mt-3">${j.titulo}</h4>
+                <p class="text-gray-300 text-sm">${j.descripcion}</p>
+
+                <p class="mt-2 text-xs text-gray-400">Lanzamiento: ${j.fecha}</p>
+
+                <div class="mt-4 flex justify-between items-center">
+                    <a href="ranking.html" class="text-pink-400 hover:text-pink-300 text-sm">Ver ranking</a>
+                    <a href="lanzamientos.html" class="text-pink-400 hover:text-pink-300 text-sm">Ver más</a>
+                </div>
+            `;
+
+            contenedor.appendChild(card);
+        });
+    </script>
+
 </body>
 </html>

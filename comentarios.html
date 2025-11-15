@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentarios - La Casa del Juego</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <!-- NAV -->
+    <header class="bg-gray-800 p-5 shadow-md">
+        <nav class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">La Casa del Juego</h1>
+            <div class="flex gap-5">
+                <a href="index.html" class="hover:text-pink-400">Inicio</a>
+                <a href="lanzamientos.html" class="hover:text-pink-400">Lanzamientos</a>
+                <a href="ranking.html" class="hover:text-pink-400">Ranking</a>
+                <a href="comentarios.html" class="hover:text-pink-400">Comentarios</a>
+                <a href="contacto.html" class="hover:text-pink-400">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- TÍTULO -->
+    <section class="py-12 text-center bg-gradient-to-b from-gray-800 to-gray-900">
+        <h2 class="text-4xl font-bold mb-4">Comentarios de la Comunidad</h2>
+        <p class="text-gray-300">Comparte tu opinión sobre los próximos juegos.</p>
+    </section>
+
+    <!-- FORMULARIO -->
+    <main class="container mx-auto p-6">
+        <form id="comentarioForm" class="bg-gray-800 p-6 rounded-lg shadow mb-10">
+            <h3 class="text-2xl font-bold mb-4">Agregar un Comentario</h3>
+
+            <input type="text" id="nombre" placeholder="Tu nombre"
+                class="w-full p-3 rounded text-black mb-4" required>
+
+            <textarea id="comentario" placeholder="Escribe tu comentario"
+                class="w-full p-3 rounded text-black mb-4" required></textarea>
+
+            <button class="bg-pink-500 px-4 py-2 rounded hover:bg-pink-600">
+                Enviar Comentario
+            </button>
+        </form>
+
+        <!-- LISTA DE COMENTARIOS -->
+        <div id="listaComentarios" class="space-y-4"></div>
+
+    </main>
+
+    <footer class="bg-gray-800 p-5 text-center">
+        <p class="text-gray-400">© 2025 La Casa del Juego</p>
+    </footer>
+
+    <script>
+        const KEY = "comentarios_juegos";
+
+        function cargarComentarios() {
+            return JSON.parse(localStorage.getItem(KEY)) || [];
+        }
+
+        function guardarComentarios(lista) {
+            localStorage.setItem(KEY, JSON.stringify(lista));
+        }
+
+        function renderComentarios() {
+            const lista = cargarComentarios();
+            const cont = document.getElementById("listaComentarios");
+            cont.innerHTML = "";
+
+            lista.forEach(com => {
+                const div = document.createElement("div");
+                div.className = "bg-gray-800 p-4 rounded shadow";
+
+                div.innerHTML = `
+                    <h4 class="text-lg font-bold">${com.nombre}</h4>
+                    <p class="text-gray-300">${com.texto}</p>
+                `;
+
+                cont.appendChild(div);
+            });
+        }
+
+        document.getElementById("comentarioForm").addEventListener("submit", e => {
+            e.preventDefault();
+
+            const nombre = document.getElementById("nombre").value;
+            const texto = document.getElementById("comentario").value;
+
+            const lista = cargarComentarios();
+            lista.push({ nombre, texto });
+            guardarComentarios(lista);
+
+            e.target.reset();
+            renderComentarios();
+        });
+
+        renderComentarios();
+    </script>
+
+</body>
+</html>
